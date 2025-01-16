@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interactif</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4c4177, #2a5470);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #quiz-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .choice {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .choice:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+        .correct {
+            background: #4CAF50 !important;
+        }
+        .wrong {
+            background: #FF5733 !important;
+        }
+        #next-btn {
+            margin-top: 15px;
+            background: #008CBA;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            display: none;
+        }
+        #score-board {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+        #timer {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Quiz Interactif</h1>
+        <div id="question-container">
+            <p class="question" id="question-text"></p>
+            <div class="choices" id="choices"></div>
+        </div>
+        <p id="timer">Temps restant : <span id="time">10</span> sec</p>
+        <button id="next-btn">Question Suivante</button>
+        <p id="score-board">Score : <span id="score">0</span></p>
+    </div>
+
+    <script>
+        const questions = [
+            { 
+                question: "Quelle est la capitale de la France ?", 
+                choices: ["Berlin", "Madrid", "Paris", "Rome"], 
+                answer: 2 
+            },
+            { 
+                question: "Combien font 3 x 4 ?", 
+                choices: ["7", "12", "15", "9"], 
+                answer: 1 
+            },
+            { 
+                question: "Quel est le plus grand océan du monde ?", 
+                choices: ["Atlantique", "Indien", "Arctique", "Pacifique"], 
+                answer: 3 
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timeLeft = 10;
+        let timer;
+        let waitingForNext = false;
+
+        const questionText = document.getElementById("question-text");
+        const choicesContainer = document.getElementById("choices");
+        const timeDisplay = document.getElementById("time");
+        const scoreDisplay = document.getElementById("score");
+        const nextBtn = document.getElementById("next-btn");
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            clearInterval(timer);
+            waitingForNext = false;
+            timeLeft = 10;
+            timeDisplay.textContent = timeLeft;
+
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.textContent = currentQuestion.question;
+            choicesContainer.innerHTML = "";
+
+            currentQuestion.choices.forEach((choice, index) => {
+                const button = document.createElement("button");
+                button.classList.add("choice");
+                button.textContent = choice;
+                button.onclick = () => selectAnswer(index);
+                choicesContainer.appendChild(button);
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    timeDisplay.textContent = timeLeft;
+                } else {
+                    clearInterval(timer);
+                    lockChoices();
+                }
+            }, 1000);
+        }
+
+        function selectAnswer(index) {
+            if (waitingForNext) return;
+            clearInterval(timer);
+            waitingForNext = true;
+
+            const buttons = document.querySelectorAll(".choice");
+            const correctIndex = questions[currentQuestionIndex].answer;
+
+            buttons.forEach((button, i) => {
+                if (i === correctIndex) button.classList.add("correct");
+                if (i !== correctIndex && i === index) button.classList.add("wrong");
+                button.disabled = true;
+            });
+
+            if (index === correctIndex) {
+                score += timeLeft; // Plus on répond vite, plus on marque de points
+                scoreDisplay.textContent = score;
+            }
+
+            nextBtn.style.display = "block";
+        }
+
+        function lockChoices() {
+            waitingForNext = true;
+            document.querySelectorAll(".choice").forEach(button => {
+                button.disabled = true;
+            });
+            nextBtn.style.display = "block";
+        }
+
+        nextBtn.addEventListener("click", () => {
+            nextBtn.style.display = "none";
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showScore();
+            }
+        });
+
+        function showScore() {
+            questionText.textContent = `Quiz terminé ! Votre score final est de ${score} points.`;
+            choicesContainer.innerHTML = "";
+            nextBtn.style.display = "none";
+            document.getElementById("timer").style.display = "none";
+        }
+
+        startQuiz();
+    </script>
+</body>
+</html>
