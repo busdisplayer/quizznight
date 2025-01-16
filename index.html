@@ -88,22 +88,56 @@
 
     <script>
         const questions = [
-            { 
-                question: "Quelle est la capitale de la France ?", 
-                choices: ["Berlin", "Madrid", "Paris", "Rome"], 
-                answer: 2 
-            },
-            { 
-                question: "Combien font 3 x 4 ?", 
-                choices: ["7", "12", "15", "9"], 
-                answer: 1 
-            },
-            { 
-                question: "Quel est le plus grand océan du monde ?", 
-                choices: ["Atlantique", "Indien", "Arctique", "Pacifique"], 
-                answer: 3 
-            }
-        ];
+    // 🏛️ HISTOIRE
+    { question: "En quelle année a eu lieu la Révolution française ?", choices: ["1492", "1789", "1914", "1848"], answer: 1 },
+    { question: "Qui était le premier empereur de France ?", choices: ["Napoléon Bonaparte", "Charlemagne", "Louis XIV", "François Ier"], answer: 0 },
+    { question: "Quelle bataille a marqué la fin de Napoléon ?", choices: ["Austerlitz", "Marignan", "Waterloo", "Verdun"], answer: 2 },
+    { question: "Qui a découvert l'Amérique en 1492 ?", choices: ["Vasco de Gama", "Christophe Colomb", "Magellan", "Marco Polo"], answer: 1 },
+    { question: "Quelle est la date du débarquement en Normandie ?", choices: ["6 juin 1944", "8 mai 1945", "11 novembre 1918", "1er septembre 1939"], answer: 0 },
+
+    // ➗ MATHS
+    { question: "Combien font 7 x 8 ?", choices: ["56", "49", "64", "42"], answer: 0 },
+    { question: "Quelle est la racine carrée de 81 ?", choices: ["7", "9", "11", "13"], answer: 1 },
+    { question: "Si un triangle a trois angles de 60°, quel type de triangle est-ce ?", choices: ["Isocèle", "Scalène", "Équilatéral", "Rectangle"], answer: 2 },
+    { question: "Quel est le résultat de 5! (5 factorielle) ?", choices: ["25", "120", "60", "15"], answer: 1 },
+    { question: "Que vaut π (approximativement) ?", choices: ["2.71", "3.14", "1.62", "4.20"], answer: 1 },
+
+    // 📖 PHILOSOPHIE
+    { question: "Qui a écrit 'Le mythe de la caverne' ?", choices: ["Platon", "Socrate", "Aristote", "Descartes"], answer: 0 },
+    { question: "Quel philosophe a dit 'Je pense, donc je suis' ?", choices: ["Nietzsche", "Descartes", "Kant", "Hegel"], answer: 1 },
+    { question: "Quel philosophe a développé la théorie du 'contrat social' ?", choices: ["Locke", "Hobbes", "Rousseau", "Marx"], answer: 2 },
+    { question: "Que signifie le mot 'éthique' ?", choices: ["Science des nombres", "Étude du vivant", "Réflexion sur la morale", "Analyse du langage"], answer: 2 },
+    { question: "Qui a écrit 'Ainsi parlait Zarathoustra' ?", choices: ["Kant", "Nietzsche", "Platon", "Sartre"], answer: 1 },
+
+    // 😂 HUMOUR
+    { question: "Qu'est-ce qui est jaune et qui attend ?", choices: ["Un citron", "Jonathan", "Une banane", "Un poussin"], answer: 1 },
+    { question: "Pourquoi Napoléon n'a jamais déménagé ?", choices: ["Il était trop petit", "Il n'aimait pas bouger", "Parce qu'il avait un Bonaparte", "Il n'avait pas de maison"], answer: 2 },
+    { question: "Quel est le comble pour un électricien ?", choices: ["Avoir une prise de tête", "Ne pas être branché", "Travailler sans tension", "Faire des étincelles"], answer: 1 },
+    { question: "Pourquoi les plongeurs plongent-ils toujours en arrière ?", choices: ["Parce que sinon ils tombent dans le bateau", "Pour voir l'eau de plus près", "Parce que c'est plus stylé", "Parce que l'eau est froide"], answer: 0 },
+    { question: "Pourquoi les Belges amènent-ils une échelle au bar ?", choices: ["Pour boire un coup", "Parce que la bière est forte", "Pour monter le volume", "Pour atteindre le sommet de leur forme"], answer: 1 },
+
+    // 🌍 CULTURE GÉNÉRALE
+    { question: "Quelle est la planète la plus proche du Soleil ?", choices: ["Mars", "Vénus", "Mercure", "Jupiter"], answer: 2 },
+    { question: "Qui a peint la Joconde ?", choices: ["Michel-Ange", "Picasso", "Léonard de Vinci", "Van Gogh"], answer: 2 },
+    { question: "Quel est l’élément chimique de symbole 'O' ?", choices: ["Oxygène", "Or", "Osmium", "Ozone"], answer: 0 },
+    { question: "Quel est le plus grand mammifère du monde ?", choices: ["Éléphant", "Baleine bleue", "Girafe", "Ours polaire"], answer: 1 },
+    { question: "Quelle est la langue la plus parlée au monde ?", choices: ["Anglais", "Espagnol", "Chinois", "Français"], answer: 2 },
+
+    // 🏅 SPORT
+    { question: "Dans quel sport utilise-t-on un volant ?", choices: ["Tennis", "Badminton", "Golf", "Ping-Pong"], answer: 1 },
+    { question: "Quel est le pays d'origine du judo ?", choices: ["Chine", "Corée", "Japon", "Thaïlande"], answer: 2 },
+    { question: "Combien de joueurs y a-t-il sur un terrain de football (pour une équipe) ?", choices: ["9", "10", "11", "12"], answer: 2 },
+    { question: "Quel athlète détient le record du 100 mètres ?", choices: ["Carl Lewis", "Usain Bolt", "Mo Farah", "Jesse Owens"], answer: 1 },
+    { question: "Quelle est la surface de jeu principale au tournoi de Roland-Garros ?", choices: ["Gazon", "Terre battue", "Moquette", "Béton"], answer: 1 },
+
+    // BONUS : QUESTIONS SURPRENANTES
+    { question: "Combien de cœurs possède une pieuvre ?", choices: ["1", "2", "3", "4"], answer: 2 },
+    { question: "Quel est le cri du renard ?", choices: ["Il aboie", "Il miaule", "Il glapit", "Il siffle"], answer: 2 },
+    { question: "Que mesure-t-on en décibels ?", choices: ["Le poids", "La lumière", "Le son", "La température"], answer: 2 },
+    { question: "Quel est le symbole chimique du fer ?", choices: ["Fe", "F", "Ir", "Fr"], answer: 0 },
+    { question: "Combien de pattes a un insecte ?", choices: ["4", "6", "8", "10"], answer: 1 }
+];
+
 
         let currentQuestionIndex = 0;
         let score = 0;
